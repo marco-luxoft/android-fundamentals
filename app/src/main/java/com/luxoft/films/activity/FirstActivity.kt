@@ -7,6 +7,7 @@ import android.content.Intent.*
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.widget.Button
 import android.widget.EditText
@@ -16,19 +17,25 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.luxoft.films.R
-import com.luxoft.films.activity.FirstActivity.Constants.CODE
+import com.luxoft.films.activity.FirstActivity.Constants.GLOBAL_KEY
 
 class FirstActivity : AppCompatActivity() {
 
     object Constants {
-        const val CODE = 1
+        const val GLOBAL_KEY = "global"
     }
 
     private var imageCamera: ImageView? = null
+    private var myString : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
+        if(savedInstanceState == null) {
+            myString = "My string"
+        } else {
+            myString = savedInstanceState.getString(GLOBAL_KEY)
+        }
 
         val editText = findViewById<EditText>(R.id.edit_message)
         val btn = findViewById<Button>(R.id.btn_send_message)
@@ -41,6 +48,9 @@ class FirstActivity : AppCompatActivity() {
             val intent = Intent(this, SecondActivity::class.java).apply {
                 putExtra("EXTRA_MESSAGE", message)
             }
+            val myBundle = Bundle()
+            myBundle.putString("string_key", "test")
+            intent.putExtra("MY_BUNDLE", myBundle)
 
             //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             //startActivity(intent)
@@ -77,6 +87,12 @@ class FirstActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(GLOBAL_KEY, myString)
+        super.onSaveInstanceState(outState)
+    }
+
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {

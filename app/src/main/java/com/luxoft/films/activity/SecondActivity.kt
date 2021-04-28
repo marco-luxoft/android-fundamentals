@@ -16,6 +16,8 @@ class SecondActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val message = intent.getStringExtra("EXTRA_MESSAGE")
+        val myBundle = intent.getBundleExtra("MY_BUNDLE")
+        val nestedString = myBundle?.getString("string_key")
         val txtView = findViewById<TextView>(R.id.text_message)
         txtView.text = message
     }
