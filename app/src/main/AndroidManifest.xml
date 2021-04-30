@@ -16,17 +16,18 @@
         <activity android:name=".activity.SecondActivity">
         </activity>
         <activity android:name=".activity.FirstActivity" >
+        </activity>
+        <activity android:name=".activity.SharePreferenceActivity">
+        </activity>
+        <activity android:name=".activity.FragmentsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SharePreferenceActivity">
+        <activity android:name=".activity.PermissionsActivity" >
         </activity>
-        <activity android:name=".activity.FragmentsActivity" >
-        </activity>
-        <activity android:name=".activity.PermissionsActivity" />
         <activity android:name=".activity.BroadcastActivity" />
         <activity android:name=".activity.POCActivity" />
         <activity android:name=".activity.MainActivity" />

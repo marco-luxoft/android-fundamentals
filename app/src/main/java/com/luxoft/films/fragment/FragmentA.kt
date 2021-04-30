@@ -12,6 +12,8 @@ import androidx.fragment.app.*
 import androidx.fragment.app.add
 import androidx.lifecycle.Observer
 import com.luxoft.films.R
+import com.luxoft.films.dto.Person
+import com.luxoft.films.dto.Pet
 import com.luxoft.films.viewmodel.SharedViewModel
 
 
@@ -19,12 +21,12 @@ class FragmentA : Fragment() {
 
     private val model: SharedViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -40,6 +42,19 @@ class FragmentA : Fragment() {
             txtView.text = item
         })
 
+        val myPerson = Person()
+        myPerson.name = "Marco"
+        myPerson.age = 31
+        print(myPerson.name)
+
+        val test = Person.myJavaFunction()
+        print(test)
+
+        val myPet = Pet()
+        myPet.name = "Foo"
+        val petName = myPet.name
+        print(petName)
+
         /*Sets whether or not to allow optimizing operations within and across transactions.
             setReorderingAllowed(true)
             This will remove redundant operations, eliminating operations that cancel. For example,
@@ -54,7 +69,7 @@ class FragmentA : Fragment() {
             activity?.supportFragmentManager?.commit { //Commit is asynchronous
                 setReorderingAllowed(true)
                 addToBackStack(null)
-                add<FragmentB>(R.id.fragment_container_view, args = bundle, tag = "fragmentB")
+                replace<FragmentB>(R.id.fragment_container_view, args = bundle, tag = "fragmentB")
             }
         }
         return root

@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -44,18 +45,26 @@ class FirstActivity : AppCompatActivity() {
         imageCamera = findViewById<ImageView>(R.id.img_camera)
 
         btn.setOnClickListener {
-            val message = editText.text.toString()
+            Log.e("my error", "this is an error")
+            Log.i("my information", "this is an warning")
+            Log.v("my information", "this is an v")
+            Log.d("my information", "this is an v")
+
+            /*val message = editText.text.toString()
             val intent = Intent(this, SecondActivity::class.java).apply {
                 putExtra("EXTRA_MESSAGE", message)
             }
             val myBundle = Bundle()
+
             myBundle.putString("string_key", "test")
+            myBundle.putInt("in_key", 2)
+
             intent.putExtra("MY_BUNDLE", myBundle)
 
             //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             //startActivity(intent)
             //startActivityForResult(intent, CODE)
-            startForResult.launch(intent)
+            startForResult.launch(intent)*/
         }
 
         btnBrowser.setOnClickListener {
