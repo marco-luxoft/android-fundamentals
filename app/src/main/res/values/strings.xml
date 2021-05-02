@@ -11,6 +11,7 @@
     <string name="unavailable">Unavailable</string>
     <string name="cancel" translatable="false">Cancel</string>
     <string name="ok" translatable="false">Ok</string>
+    <string name="description" translatable="false">Description: %s</string>
     <string name="title_permissions" translatable="false">Enable the permissions in settings , they are needed ...</string>
     <string name="login" translatable="false">Login : %s</string>
 

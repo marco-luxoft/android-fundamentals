@@ -7,9 +7,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.luxoft.films.R
+import com.luxoft.films.activity.FragmentsActivity.FragmentsTags.FRAGMENT_A_TAG
 import com.luxoft.films.fragment.FragmentA
 
 class FragmentsActivity : AppCompatActivity() {
+
+    object FragmentsTags {
+        const val FRAGMENT_A_TAG = "fragmentA"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +23,7 @@ class FragmentsActivity : AppCompatActivity() {
             val bundle = bundleOf("some_int" to 0)
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<FragmentA>(R.id.fragment_container_view, args = bundle, tag = "fragmentA")
+                add<FragmentA>(R.id.fragment_container_view, args = bundle, tag = FRAGMENT_A_TAG)
             }
         }
     }

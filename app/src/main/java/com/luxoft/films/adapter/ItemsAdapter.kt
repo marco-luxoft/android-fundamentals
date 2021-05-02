@@ -50,7 +50,7 @@ class ItemsAdapter(private val mListener: (Gist, Int) -> Unit) :
                 holder.textViewDescription.text =  if(!item.description.isNullOrBlank()) item.description else holder.textViewDescription.context.getString(R.string.unavailable)
 
                 item.owner?.let { owner ->
-                    val login = if(!item.description.isNullOrBlank()) item.description else holder.textViewLogin.context.getString(R.string.unavailable)
+                    val login = if(!owner.login.isNullOrBlank()) owner.login else holder.textViewLogin.context.getString(R.string.unavailable)
                     val loginFormat = holder.textViewLogin.context.getString(R.string.login)
                     holder.textViewLogin.text =  String.format(loginFormat, login)
 

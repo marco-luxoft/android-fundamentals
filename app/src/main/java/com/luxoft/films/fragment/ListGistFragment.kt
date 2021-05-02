@@ -72,6 +72,7 @@ class ListGistFragment : Fragment() {
     private fun openDetailsFragment(gist: Gist, i: Int) {
         val bundle = bundleOf(
             "key_owner" to gist.owner,
+            "key_user" to gist.user,
             "key_description" to gist.description,
             "key_public" to gist.public,
             "key_createdAt" to gist.created_at,
