@@ -18,10 +18,25 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/btn_update_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_vertical_margin"
+        android:text="Update ViewModel Data"/>
+
+    <Button
+        android:id="@+id/btn_observer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_vertical_margin"
+        android:text="Start Observing"/>
+
+    <Button
         android:id="@+id/btn_fragmentB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="On Click"/>
+        android:layout_marginTop="@dimen/default_vertical_margin"
+        android:text="Share Data"/>
 
     <Button
         android:id="@+id/btn_close_fragment"

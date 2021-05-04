@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.luxoft.films.R
@@ -16,7 +17,9 @@ import com.luxoft.films.viewmodel.SharedViewModel
 
 class FragmentB : Fragment() {
 
+    private var fragmentViewModel: FragmentBViewModel? = null
     private val model: SharedViewModel by activityViewModels()
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,8 +39,29 @@ class FragmentB : Fragment() {
         val txtView = root.findViewById<TextView>(R.id.text_fragmentB)
         txtView.text = aValueFromFragmentA
         val btnView = root.findViewById<Button>(R.id.btn_fragmentB)
+        val btnUpdateData = root.findViewById<Button>(R.id.btn_update_data)
+        val btnObserver = root.findViewById<Button>(R.id.btn_observer)
         val closeFragment = root.findViewById<Button>(R.id.btn_close_fragment)
-        val fragmentViewModel = ViewModelProvider(this).get(FragmentBViewModel::class.java)
+
+        fragmentViewModel = ViewModelProvider(this).get(FragmentBViewModel::class.java)
+
+        fragmentViewModel?.getLiveData()?.observe(viewLifecycleOwner, {person ->
+            Toast.makeText(context, "Age ${person.age}", Toast.LENGTH_SHORT).show()
+        })
+
+        btnUpdateData.setOnClickListener {
+            fragmentViewModel?.updateData()
+        }
+
+        btnObserver.setOnClickListener {
+            //startObserving()
+        }
+
+
+        /*fragmentViewModel.getLiveData()?.observe(viewLifecycleOwner, { count ->
+            Toast.makeText(context, "Count $count", Toast.LENGTH_SHORT).show()
+        })*/
+
         btnView.setOnClickListener {
             model.setNameData("From fragment B")
         }
@@ -61,6 +85,12 @@ class FragmentB : Fragment() {
         }
 
         return root
+    }
+
+    private fun startObserving() {
+        /*fragmentViewModel?.getLiveData()?.observe(viewLifecycleOwner, { count ->
+            Toast.makeText(context, "Count $count", Toast.LENGTH_SHORT).show()
+        })*/
     }
 
     override fun onStart() {

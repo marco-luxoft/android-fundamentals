@@ -10,8 +10,6 @@ public class Person {
     }
 
     public void setName(String name) {
-        /*Pet myPet = new Pet();
-        myPet.setName("Android");*/
         this.name = name;
     }
 

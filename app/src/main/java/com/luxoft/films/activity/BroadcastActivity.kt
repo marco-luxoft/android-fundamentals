@@ -11,14 +11,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.luxoft.films.R
-import com.luxoft.films.poc.AlarmBroadcastReceiver
+import com.luxoft.films.activity.BroadcastActivity.Constant.CONSTANT
 import com.luxoft.films.poc.AirPlaneBroadcastReceiver
+import com.luxoft.films.poc.AlarmBroadcastReceiver
 
 
 class BroadcastActivity : AppCompatActivity() {
 
-    private var broadcastReceiver: BroadcastReceiver? = null
-    private var alarmBroadcastReceiver: BroadcastReceiver? = null
+    object Constant {
+        const val CONSTANT = 234324243
+    }
+
+    private var airPlaneBroadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,7 @@ class BroadcastActivity : AppCompatActivity() {
 
             val i: Int = editText.text.toString().toInt()
             val intent = Intent(this, AlarmBroadcastReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(this, 234324243, intent, 0)
+            val pendingIntent = PendingIntent.getBroadcast(this, CONSTANT, intent, 0)
             val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
             alarmManager[AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                     + i * 1000] = pendingIntent
@@ -39,30 +43,25 @@ class BroadcastActivity : AppCompatActivity() {
                 this, "Alarm set in $i seconds",
                 Toast.LENGTH_LONG
             ).show()
-
         }
 
-        broadcastReceiver = AirPlaneBroadcastReceiver()
-        alarmBroadcastReceiver = AlarmBroadcastReceiver()
+        airPlaneBroadcastReceiver = AirPlaneBroadcastReceiver()
 
-        val filter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
-        registerReceiver(broadcastReceiver, filter)
+        val airPlaneFilter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        registerReceiver(airPlaneBroadcastReceiver, airPlaneFilter)
     }
 
     override fun onDestroy() {
-        broadcastReceiver?.let { unregisterReceiver(it) }
-        alarmBroadcastReceiver?.let { unregisterReceiver(it) }
+        airPlaneBroadcastReceiver?.let { unregisterReceiver(it) }
+        disableAlarmManager()
         super.onDestroy()
     }
 
-    /*
-          val receiver = ComponentName(this, AlarmBroadcastReceiver::class.java)
-        val pm: PackageManager = packageManager
+    private fun disableAlarmManager() {
+        val aManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(baseContext, AlarmBroadcastReceiver::class.java)
+        val pIntent = PendingIntent.getBroadcast(this, CONSTANT, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        aManager.cancel(pIntent)
+    }
 
-        pm.setComponentEnabledSetting(
-            receiver,
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-            PackageManager.DONT_KILL_APP
-        )
-     */
 }

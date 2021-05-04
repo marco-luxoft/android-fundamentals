@@ -31,7 +31,11 @@ class POCActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        job?.cancel()
+        job?.let {
+            if(it.isActive) {
+                it.cancel()
+            }
+        }
         super.onDestroy()
     }
 
