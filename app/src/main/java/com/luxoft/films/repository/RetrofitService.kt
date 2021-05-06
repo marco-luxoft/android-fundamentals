@@ -7,4 +7,10 @@ import retrofit2.http.GET
 interface RetrofitService {
     @GET("gists/public")
     suspend fun getGists(): Response<List<Gist>>
+
+
+    /*
+    @GET("gists/public/{Id}")
+    suspend fun getData(@Path("Id") gistId: String): Response<Gist>
+     */
 }

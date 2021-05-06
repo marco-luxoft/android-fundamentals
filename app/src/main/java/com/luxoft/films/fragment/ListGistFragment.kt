@@ -33,8 +33,8 @@ class ListGistFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_list, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerview_items)
         val loadingView = root.findViewById<ProgressBar>(R.id.pg_loading)
-        val myAdapter = ItemsAdapter { gist, i ->
-            openDetailsFragment(gist, i)
+        val myAdapter = ItemsAdapter { gist, itemPosition ->
+            openDetailsFragment(gist, itemPosition)
         }
 
         recyclerView.apply {
@@ -52,14 +52,14 @@ class ListGistFragment : Fragment() {
             myAdapter.notifyDataSetChanged()
         })
 
-        model.getListPositionLiveData().observe(viewLifecycleOwner, { position ->
+        /*model.getListPositionLiveData().observe(viewLifecycleOwner, { position ->
             myAdapter.changeBackgroundColor(position)
             val item = model.getGists()?.value?.get(position)
             item?.public = item?.let {
                 !it.public
             } ?: false
             print(item?.public)
-        })
+        })*/
 
 
         model.getErrorLiveData().observe(viewLifecycleOwner, { error ->

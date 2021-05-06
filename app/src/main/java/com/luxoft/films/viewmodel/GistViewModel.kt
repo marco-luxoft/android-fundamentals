@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class GistViewModel : ViewModel() {
+
     private var job: Job? = null
     private var gistsLiveData: MutableLiveData<List<Gist>>? = null
     private val errorsLiveData: MutableLiveData<String> by lazy(LazyThreadSafetyMode.NONE) { // Default lazy(LazyThreadSafetyMode.SYNCHRONIZED)
@@ -25,8 +26,8 @@ class GistViewModel : ViewModel() {
     fun getGists(): LiveData<List<Gist>>? {
         if (gistsLiveData == null) {
             gistsLiveData = MutableLiveData()
-            loadGists()
         }
+        loadGists()
         return gistsLiveData
     }
 
