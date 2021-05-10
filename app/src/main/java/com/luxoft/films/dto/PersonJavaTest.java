@@ -1,6 +1,6 @@
 package com.luxoft.films.dto;
 
-public class Person {
+public class PersonJavaTest {
 
     private String name;
     private int age;

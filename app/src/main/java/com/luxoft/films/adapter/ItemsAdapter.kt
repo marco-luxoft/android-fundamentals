@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.luxoft.films.R
 import com.luxoft.films.dto.Gist
 
-class ItemsAdapter(private val mListener: (Gist, Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemsAdapter(private val mListener: (Gist, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var gists: List<Gist>? = null
 
@@ -40,16 +38,15 @@ class ItemsAdapter(private val mListener: (Gist, Int) -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) {
             gists?.let {
-                val item = it[position] //Gist
-                holder.textViewUserName.text =
-                    item.user ?: holder.textViewUserName.context.getString(R.string.unavailable)
+                val gist = it[position] //Gist
+                holder.textViewUserName.text = gist.user ?: holder.textViewUserName.context.getString(R.string.unavailable)
                 holder.itemView.setOnClickListener {
-                    mListener.invoke(item, position)
+                    mListener.invoke(gist, position)
                 }
 
-                holder.textViewDescription.text =  if(!item.description.isNullOrBlank()) item.description else holder.textViewDescription.context.getString(R.string.unavailable)
+                holder.textViewDescription.text =  if(!gist.description.isNullOrBlank()) gist.description else holder.textViewDescription.context.getString(R.string.unavailable)
 
-                item.owner?.let { owner ->
+                gist.owner?.let { owner ->
                     val login = if(!owner.login.isNullOrBlank()) owner.login else holder.textViewLogin.context.getString(R.string.unavailable)
                     val loginFormat = holder.textViewLogin.context.getString(R.string.login)
                     holder.textViewLogin.text =  String.format(loginFormat, login)
@@ -57,7 +54,8 @@ class ItemsAdapter(private val mListener: (Gist, Int) -> Unit) :
                     Glide.with(holder.imageViewProfilePic.context).load(owner.avatar_url)
                         .into(holder.imageViewProfilePic)
                 }
-                holder.imageViewPublic.setImageResource(if (item.public) R.drawable.green_circle else R.drawable.red_circle)
+
+                holder.imageViewPublic.setImageResource(if (gist.public) R.drawable.green_circle else R.drawable.red_circle)
             }
 
         }

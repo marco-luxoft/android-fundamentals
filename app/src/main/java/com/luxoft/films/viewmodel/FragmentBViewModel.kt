@@ -3,7 +3,7 @@ package com.luxoft.films.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.luxoft.films.dto.Person
+import com.luxoft.films.dto.PersonJavaTest
 
 class FragmentBViewModel : ViewModel() {
 
@@ -11,22 +11,22 @@ class FragmentBViewModel : ViewModel() {
         print("Constructor")
     }
 
-    private var myLiveData: MutableLiveData<Person>? =  MutableLiveData()
+    private var myLiveData: MutableLiveData<PersonJavaTest>? =  MutableLiveData()
     private var count: Int = 0
 
     fun updateData() {
-        val person = Person()
+        val person = PersonJavaTest()
         person.age = count++
         person.name = "Android"
         myLiveData?.value = person
     }
 
-    fun getLiveData(): LiveData<Person>? {
+    fun getLiveData(): LiveData<PersonJavaTest>? {
         return myLiveData
     }
 
     override fun onCleared() {
-        Person.myJavaFunction()
+        PersonJavaTest.myJavaFunction()
         count = 0
         super.onCleared()
     }

@@ -9,10 +9,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.*
-import androidx.fragment.app.add
 import androidx.lifecycle.Observer
 import com.luxoft.films.R
-import com.luxoft.films.dto.Person
+import com.luxoft.films.dto.PersonJavaTest
 import com.luxoft.films.dto.Pet
 import com.luxoft.films.viewmodel.SharedViewModel
 
@@ -42,12 +41,12 @@ class FragmentA : Fragment() {
             txtView.text = item
         })
 
-        val myPerson = Person()
+        val myPerson = PersonJavaTest()
         myPerson.name = "Marco"
         myPerson.age = 31
         print(myPerson.name)
 
-        val test = Person.myJavaFunction()
+        val test = PersonJavaTest.myJavaFunction()
         print(test)
 
         val myPet = Pet()
